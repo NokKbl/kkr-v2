@@ -9,11 +9,9 @@
 </head>
 
 <body style="background-color: #fff59d">
-    <!-- <body> -->
     {% csrf_token %}
     <div class="webpage">
         <div class="jumbotron" style="background-color: #ffba55; padding: 20px;">
-        <!-- <div class="jumbotron"> -->
             <div class="row align-items-center">
                 <div class="col-2">
                     <img src="static/khubkhaoapp/images/logo.png" width="100px" height="100px">
@@ -34,32 +32,30 @@
                     <div class="row" style="height: 20px;"></div>
                     <div class="barcontent">
                         <div class="row">
-                            <label style="font-size: 20px;">Vegetarian:</label>
+                            <label style="font-size: 20px;">What type of food you want to eat?</label>
                         </div>
                         <div class="row">
                             <div class="col">
-                                {% for veg in vegie_list %}
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veg" id="{{ veg.get_veg_id }}" value="option1"
-                                        checked>
-                                    <label class="form-check-label" for="{{ veg.get_veg_id }}">
-                                        {{ veg }}
-                                    </label>
+                                <div class="form-group form-check">
+                                    {% for ethnic in ethnic_list %}
+                                    <input type="checkbox" class="form-check-input" id="{{ ethnic.id }}">
+                                    <label class="form-check-label" for="{{ ethnic.id }}">{{ ethnic }}</label>
+                                    <br>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <label style="font-size: 20px;">Non-Vegetarian:</label>
+                            <label style="font-size: 20px;">Need more specific?</label>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group form-check">
                                     {% for category in category_list %}
-                                        <input type="checkbox" class="form-check-input" id="{{ category.get_category_id }}">
-                                        <label class="form-check-label" for="{{ category.get_category_id }}">{{ category }}</label>
-                                        <br>
+                                    <input type="checkbox" class="form-check-input" id="{{ category.id }}">
+                                    <label class="form-check-label" for="{{ category.id }}">{{ category }}</label>
+                                    <br>
                                     {% endfor %}
                                 </div>
                                 <button name="submit_btn" class="btn btn-warning btn-lg btn-block" type="submit">Submit</button>
@@ -78,14 +74,23 @@
                     {% for food in food_list %}
                     <div class="row" style="padding: 20px;">
                         <div class="col-4" style="text-align: right;">
-                            <img src="{{ food.get_image_location }}" width="200px" height="150px" class="border border-warning rounded">
+                            <img src="{{ food.get_image_location }}" width="250px" height="200px" class="border border-warning rounded">
                         </div>
                         <div class="col-8" style="text-align: left;">
                             <h4>{{ food }}</h4>
                             <ul>
-                                <li><h6>Average Price: {{ food.get_average_price }}</h6></li>
-                                <li><h6>Categories: {% for veg in food.veggie.all %} {% for item in veg.item_name.all %} {{ item }} {% endfor %} {% endfor %}</h6></li>
-                                <li><h6>Rate point: {{ food.get_rate }} /100</h6></li>
+                                <li>
+                                    <h6>Average Price: {{ food.get_average_price }}</h6>
+                                </li>
+                                <li>
+                                    <h6>Type: {{ food.get_ethnic_food_name }} </h6>
+                                </li>
+                                <li>
+                                    <h6>Categories: {% for cate in food.get_category.all %} {{ cate }} {% endfor %}</h6>
+                                </li>
+                                <li>
+                                    <h6>Rate point: {{ food.get_rate }} /100</h6>
+                                </li>
                             </ul>
                         </div>
                     </div>
