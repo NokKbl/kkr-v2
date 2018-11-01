@@ -1,34 +1,27 @@
 from django.db import models
 
-class Item(models.Model):
-    item_name = models.CharField(
+class Country(models.Model):
+    country_name = models.CharField(
         max_length=20,
-        verbose_name='Ingredient name',
+        verbose_name='Category name',
         unique=True,
         blank=False,
-        help_text='Enter ingredient name'
+        help_text='Enter country name'
     )
     
     def __str__(self):
-        return self.item_name
+        return self.country_name
 
-class Veggie(models.Model):
-    veggie_name = models.CharField(
+class Category(models.Model):
+    type_name = models.CharField(
         max_length=20,
-        verbose_name='Veggie type',
+        verbose_name='Category name',
         unique=True,
         blank=False,
-        help_text='Enter veggie type',
-        primary_key=True,
+        help_text='Enter Category name'
     )
-
-    item_name = models.ManyToManyField(
-        Item,
-        verbose_name='Item name'
-    )
-
     def __str__(self):
-        return self.veggie_name
+        return self.type_name
 
 class Food(models.Model):
     food_name = models.CharField(
@@ -52,10 +45,15 @@ class Food(models.Model):
         verbose_name='Average price'
     )
 
-    veggie = models.ManyToManyField(
-        Veggie,
-        verbose_name='Veggie Type',
-        blank=True,
+    rate = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Average price'
+    )
+
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.CASCADE,
+        verbose_name='Country Food'
     )
     
     def __str__(self):
@@ -67,20 +65,5 @@ class Food(models.Model):
     def get_image_location(self):
         return self.image_location
     
-    def get_veggie(self):
-        return self.veggie
-
-
-class Ingredient(models.Model):
-    non_veg = models.ForeignKey(
-        Food,
-        on_delete=models.CASCADE,
-        verbose_name='Ingredient'
-    )
-
-    items = models.ForeignKey(
-        Item,
-        on_delete=models.CASCADE,
-        verbose_name='Item',
-    )
-  
+    def get_rate(self):
+        return self.rate
