@@ -69,27 +69,27 @@
                 <div class="content" style="text-align: center;">
                     <div class="row"></div>
                     <br>
-                    <h2>Generated Result!</h2>
+                    <h1>Generated Result!</h1>
                     <br>
                     {% for food in food_list %}
                     <div class="row" style="padding: 20px;">
                         <div class="col-4" style="text-align: right;">
-                            <img src="{{ food.get_image_location }}" width="250px" height="200px" class="border border-warning rounded">
+                            <img src="{{ food.get_image_location }}" width="233px" height="175px" class="border border-warning rounded">
                         </div>
                         <div class="col-8" style="text-align: left;">
-                            <h4>{{ food }}</h4>
+                            <h3>{{ food }}</h3>
                             <ul>
                                 <li>
-                                    <h6>Average Price: {{ food.get_average_price }}</h6>
+                                    <h5>Average Price: {{ food.get_average_price }}</h5>
                                 </li>
                                 <li>
-                                    <h6>Type: {{ food.get_ethnic_food_name }} </h6>
+                                    <h5>Type: {{ food.get_ethnic_food_name }} </h5>
                                 </li>
                                 <li>
-                                    <h6>Categories: {% for cate in food.get_category.all %} {{ cate }} {% endfor %}</h6>
+                                    <h5>Categories: {% for cate in food.get_category.all %} {{ cate }} {% endfor %}</h5>
                                 </li>
                                 <li>
-                                    <h6>Rate point: {{ food.get_rate }} /100</h6>
+                                    <h5>Rate point: {{ food.get_rate }} /100</h5>
                                 </li>
                             </ul>
                         </div>
