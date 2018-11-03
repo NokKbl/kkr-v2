@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 # from khubkhaoapp.views import IndexTemplateView
-from khubkhaoapp.views import IndexTemplateView
+from khubkhaoapp.views import IndexTemplateView, IndexSearchView
 
+app_name = 'khubkhaoapp'
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('aa', IndexView, name='index'),
-    path('', IndexTemplateView.as_view())
+    path('', IndexTemplateView.as_view()),
+    path('result/', IndexSearchView, name='result')
 ]
